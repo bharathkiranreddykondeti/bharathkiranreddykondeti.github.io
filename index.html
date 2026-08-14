@@ -762,6 +762,37 @@
   </div>
 </div>
 
+
+<div class="modal-overlay" id="githubModalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="githubModalClose">×</button>
+    <h3>Publish to GitHub</h3>
+    <div class="sub">This commits the current page straight to your repo's index.html via the GitHub API. Your token is only used for this request — it is never written into the published file.</div>
+    <div class="field">
+      <label>Repository (owner/repo)</label>
+      <input type="text" id="ghRepoInput" placeholder="yourname/yourname.github.io">
+    </div>
+    <div class="field">
+      <label>Branch</label>
+      <input type="text" id="ghBranchInput" placeholder="main">
+    </div>
+    <div class="field">
+      <label>GitHub personal access token</label>
+      <input type="password" id="ghTokenInput" autocomplete="off" placeholder="ghp_...">
+      <div class="hint">Needs repo write access.
+        <label style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;">
+          <input type="checkbox" id="ghRememberToken"> Remember for this browser session
+        </label>
+      </div>
+    </div>
+    <div id="ghStatusMsg" class="hint"></div>
+    <div class="modal-actions">
+      <button id="githubCancelBtn">Cancel</button>
+      <button class="save" id="githubPublishConfirmBtn">Publish now</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ---- storage availability check (some sandboxed previews block browser storage) ----
 let storageAvailable = true;
@@ -1143,7 +1174,7 @@ function buildSiteHtml(){
   clone.querySelector('#adminToggleWrap')?.setAttribute('style', 'display:none;');
   clone.querySelector('#adminPanel')?.classList.remove('open');
   clone.querySelector('#modalOverlay')?.classList.remove('open');
-  clone.querySelector('#githubModalOverlay')?.remove();
+  clone.querySelector('#githubModalOverlay')?.classList.remove('open');
 
   clone.querySelectorAll('script').forEach(scriptEl => {
     scriptEl.textContent = scriptEl.textContent.replace(
